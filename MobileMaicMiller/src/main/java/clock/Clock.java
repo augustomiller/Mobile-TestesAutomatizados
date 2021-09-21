@@ -1,4 +1,4 @@
-package calculadora;
+package clock;
 
 import static org.junit.Assert.assertEquals;
 
@@ -15,7 +15,7 @@ import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 
-public class Calculadora {
+public class Clock {
 	
 	  private AndroidDriver driver;
 
