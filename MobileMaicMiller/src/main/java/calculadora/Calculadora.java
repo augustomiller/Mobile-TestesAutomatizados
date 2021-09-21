@@ -5,6 +5,7 @@ import java.net.URL;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 
 public class Calculadora {
@@ -18,8 +19,8 @@ public class Calculadora {
 	    desiredCapabilities.setCapability("appPackage", "com.android.calculator2");
 	    desiredCapabilities.setCapability("appActivity", "com.android.calculator2.Calculator");
 
-	    AndroidDriver driver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), desiredCapabilities);
+	    AndroidDriver<MobileElement> driver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), desiredCapabilities);
 		
 	}
-
+	
 }
