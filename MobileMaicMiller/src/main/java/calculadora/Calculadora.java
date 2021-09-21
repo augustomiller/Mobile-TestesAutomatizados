@@ -1,5 +1,7 @@
 package calculadora;
 
+import static org.junit.Assert.assertEquals;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -30,27 +32,65 @@ public class Calculadora {
 
 	    driver = new AndroidDriver(remoteUrl, desiredCapabilities);
 	  }
-
-	  @Test
-	  public void interagirComElementos() throws Exception {
-		  System.out.println("Clock is Running...");
-		  
+	  
+	  public void acessarMenuAlarme() throws Exception {
 		  MobileElement btnAlarme = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text='ALARM']");
 		  btnAlarme.click();
-		  Thread.sleep(2000);
-		  
+	  }
+	  
+	  public void novoAlarme() throws Exception {
 		  MobileElement btnAddAlarm = (MobileElement) driver.findElement(MobileBy.AccessibilityId("Add alarm"));
 		  btnAddAlarm.click();
-		  Thread.sleep(2000);
 		  
 		  MobileElement btnOk = (MobileElement) driver.findElement(MobileBy.id("android:id/button1"));
-		  System.out.println("Clicking using MobileBy Id...");
 		  btnOk.click();
-		  Thread.sleep(2000);
+	  }
+
+	  @Test
+	  public void interagirComEditText() throws Exception {
 		  
-		  MobileElement btnExpand = (MobileElement) driver.findElement(MobileBy.xpath("//android.widget.ImageButton[@resource-id='com.google.android.deskclock:id/arrow'][1]"));
-		  btnExpand.click();
-		  Thread.sleep(2000);
+		  acessarMenuAlarme();
+		  novoAlarme();
+		  
+		  MobileElement campoLabel = (MobileElement) driver.findElement(MobileBy.id("com.google.android.deskclock:id/edit_label"));
+		  campoLabel.click();
+		  
+		  MobileElement campoEditText = (MobileElement) driver.findElement(MobileBy.xpath("//android.widget.EditText"));
+		  campoEditText.sendKeys("Hora de ir para a academia!");
+	  }
+	  
+	  @Test
+	  public void interagirComCombo() throws Exception {
+		  acessarMenuAlarme();
+		  novoAlarme();
+		  
+		  MobileElement defaultCombo = (MobileElement) driver.findElement(MobileBy.xpath("//android.widget.TextView[@text='Default (Cesium)']"));
+		  defaultCombo.click();
+		  
+		  MobileElement bariumCombo = (MobileElement) driver.findElement(MobileBy.xpath("//android.widget.TextView[@text='Barium']"));
+		  bariumCombo.click();
+	  }
+	  
+	  @Test
+	  public void interagindoComSwitch() throws Exception {
+		  acessarMenuAlarme();
+		  novoAlarme();
+		  
+		  MobileElement switchApp = (MobileElement) driver.findElement(MobileBy.xpath("//android.widget.Switch[@text='ON'][1]"));
+		  switchApp.click();
+		  
+		  assertEquals("false", switchApp.getAttribute("checked"));
+	  }
+	  
+	  @Test
+	  public void interagindoComCheckBox() throws Exception {
+		  acessarMenuAlarme();
+		  novoAlarme();
+		   
+		  MobileElement campoCheckBox = (MobileElement) driver.findElement(MobileBy.xpath("//android.widget.CheckBox[@text='Repeat']"));
+		  campoCheckBox.click();
+		  
+		  assertEquals("true", campoCheckBox.getAttribute("checked"));
 	  }
 
 	  @After
